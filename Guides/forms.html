@@ -7,10 +7,33 @@
     <script src="../bower_components/react/JSXTransformer.js"></script>
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
     <script type="text/jsx">
+        //绑定一个固定的值给输入框，如果想要变更内容需要使用onChange消息进行查询
+        React.render(<input type="text" value="Hello!"/>,document.getElementById("unchangable"));
+        var Myform=React.createClass({
+            getInitialState: function () {
+                return {value:"hello"};
+            },
+            handleChange: function (event) {
+                this.setState({value:event.target.value.substr(0,10)})
+            },
+            render: function () {
+                var value=this.state.value;
+                return (<input type="text" value={value} onChange={this.handleChange}/>);
+            }
+        });
+        React.render(<Myform/>,document.getElementById("changable"));
+        React.render(<input type="text" defaultValue="Hello!"/>,document.getElementById("changable2"));
+
+
 
     </script>
 </head>
 <body>
+<div id="unchangable"></div>
+<div id="changable"></div>
+<!--changeable输入中给予了最大的控制能力-->
+<div id="changable2"></div>
 
+<textarea name="description">This is the description.</textarea>
 </body>
 </html>
