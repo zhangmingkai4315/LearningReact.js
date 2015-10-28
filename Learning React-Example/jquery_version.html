@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head lang="en">
+    <meta charset="UTF-8">
+    <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="../bower_components/react/react.js"></script>
+    <script src="../bower_components/react/JSXTransformer.js"></script>
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <title></title>
+
+</head>
+<body>
+<br>
+<div class="container">
+    <div class="row" id="main">
+        <div class="well clearfix">
+            <textarea class="form-control"></textarea><br>
+            <span>140</span>
+            <button class="js-tweet-button btn btn-primary pull-right" disabled>Tweet</button>
+            <button class="js-add-photo-button btn btn-default pull-right">Add Photo</button>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+        $(document).ready(function(){
+            $('.js-tweet-button').prop("disabled", true);
+
+            $("textarea").on('input', function () {
+                if ($(this).val().length > 0||$(".js-add-photo-button").hasClass("is-on")) {
+                    $(".js-tweet-button").prop("disabled", false);
+                    if($(".js-add-photo-button").hasClass("is-on")){
+                        $("span").text(140 -21-$("textarea").val().length);
+                    }else{
+                        $("span").text(140 - $("textarea").val().length);
+                    }
+                } else {
+                    $(".js-tweet-button").prop("disabled", true);
+                }
+
+            });
+
+            $(".js-add-photo-button").on("click", function() {
+                if ($(this).hasClass("is-on")) {
+                    if( $("textarea").val().length==0){
+                        $(".js-tweet-button").prop("disabled", true);
+                    }
+                    $(this)
+                            .removeClass("is-on")
+                            .text("Add Photo");
+                    $("span").text(140 - $("textarea").val().length);
+                } else {
+                    $(".js-tweet-button").prop("disabled", false);
+                    $(this)
+                            .addClass("is-on")
+                            .text("✓ Photo Added");
+                    $("span").text(140 - 21-$("textarea").val().length);
+                }
+            });
+        });
+</script>
+</body>
+</html>
